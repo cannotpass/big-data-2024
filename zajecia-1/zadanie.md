@@ -100,3 +100,8 @@ file_path = string(val(selection));
 content = readlines(file_path);
 disp(content);
 ```
+
+## Zadania do zrealizowania indywidualnie:
+Przerób program tak, żeby w przypadku podania już zajętej nazwy do mapy, prosił użytkownika o podanie nowej nazwy tak długo aż użytkownik nie wpisze poprawnej, lub nie wpisze QUIT. Ostrzeż użytkownika, że QUIT jest słowem, które kończy działanie programu.
+
+Na podstawie skryptu saver.m zmodyfikuj skrypt loader.m w taki sposób, żeby nie kończył się błędem, jeżeli plik z mapą (files_map.mat) nie istanieje, a jedynie informował o tym użytkownika i kończył działanie.
