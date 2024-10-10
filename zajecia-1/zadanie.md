@@ -111,10 +111,10 @@ text(min_idx, min_temp_value, ['\leftarrow Min: ', num2str(min_temp_value)], 'Co
 
 ## **Krok 4: Eksploracja większych zestawów danych**
 
-Dla bardziej zaawansowanej eksploracji poproś studentów, aby:
-1. Zmienili rozmiar symulowanych danych (np. 500 odczytów).
-2. Porównali różne wielkości okien dla średniej ruchomej.
-3. Przeanalizowali różne metody wygładzania (np. mediana ruchoma zamiast średniej ruchomej).
+Dla bardziej zaawansowanej eksploracji:
+1. Zmień rozmiar symulowanych danych (500, 1000 i 1500 odczytów).
+2. Porównaj różne wielkości okien dla średniej ruchomej (3, 10, 20).
+3. Przeanalizuj różne metody wygładzania (np. mediana ruchoma zamiast średniej ruchomej).
 
 ---
 
