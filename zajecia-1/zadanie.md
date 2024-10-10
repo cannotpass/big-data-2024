@@ -1,107 +1,127 @@
-# Zadanie
-## Mapa plików, lokalna baza danych
 
-Problemem do rozwiązania jest składowanie ogromnej ilości plików w jednym folderze, potrafi to zwolnić system i ograniczyć jej możliwości. 
+# **Warsztaty: Zbieranie i przetwarzanie danych w MATLAB**
 
-Użytkownik ma za zadanie umieszczać pliki w katalogu wejściowym.
+## **Cel**:
+Podczas tych warsztatów nauczysz się:
+1. Zbierać i symulować dane (w tym dodawać szum).
+2. Przetwarzać dane (obliczać podstawowe statystyki, wygładzać dane).
+3. Tworzyć wykresy, aby wizualizować i porównywać różne zestawy danych.
+4. Anotować kluczowe punkty na wykresach.
 
-Program po uruchomieniu powinien mapować plik do podanej przez użytkownika nazwy, a później przenosić plik do specjalnego katalogu i zapisywać mapowanie. Użytkownik może uruchomić drugi program, który pozwoli mu wczytać zawartość wybranego pliku.
-Program będzie składał się z dwóch skryptów. Ma za zadanie tworzyć bazę danych katalogów oraz plików i dbać o to, żeby katalogi były podobnej wielkości, a co za tym idzie wydajność i dostęp do plików nie był ograniczany.
+Pod koniec tego zadania będziesz umieć używać MATLAB do bardziej zaawansowanej analizy danych, uwzględniając szum i wygładzanie.
 
-W normalnym środowisku działa to trochę inaczej, jednak sama idea tworzenia drzewa katalogów jest wykorzystywana powszechnie w branży (np. sieć katalogów systemu kontroli wersji GIT). Mapy, zwane też tablicami asocjacyjnymi, dzięki szybkości działania, są jednymi z najczęściej wykorzystywanych struktur danych, które są spotykane w większości języków programowania i większości projektów programistycznych.
+---
 
-## Wstęp
-1. Stwórz nowy projekt w MATLAB.
-2. Stwórz dwa katalogi w wybranym katalogu roboczym (w którym będzie znajdował się
-Twój skrypt), jeden nazwij „pliki_wejsciowe”, drugi „pliki wyjsciowe”.
-3. W katalogu pliki_wejsciowe stwórz 3 pliki tekstowe, z których każdy będzie miał inną
-nazwę i inną zawartość (przynajmniej 3 linijki tekstu, mogą być krótkie).
+## **Krok 1: Symulacja zbierania danych z szumem**
 
-## Skrypt saver.m :
-1. Zdefiniujmy dwa katalogi, które będą wykorzystywane w programie.
-```
-input_folder = ‘pliki_wejsciowe’;
-output_folder = ‘pliki_wyjsciowe’;
-```
-2. Stwórzmy strukturę, która będzie zwierała w sobie informacje o strukturze katalogu roboczego:
-```
-input_files = dir(input_folder);
-```
-3. Jeżeli istnieje już plik z mapą przechowującą informację o położeniu przetworzonych plików wczytajmy go, jeśli nie, stwórzmy nowy obiekt mapy.
-```
-if exist(‘files_map.mat’, ‘dir’)
-    files_map = load(“files_map.mat”);
-else
-    files_map = containers.Map;
-end
-```
-4. Dla wszystkich plików w naszym katalogu „pliki_wejsciowe” wykonajmy następujące instrukcje:
-```
-for n = 1:numel(input_files)
-    fname = string(input_files(n).name);
-    if fname ~= “.” && fname ~= “..”
-        fpath = fullfile(input_folder, fname);
-        prompt = strcat(“To which name I should map:”, fpath, “? “);
-        map_key = string(input(prompt, “s”));
-        if isKey(files_map, map_key)
-            error(“Key {“ + map_key + “} is already taken, retart the program.”)
-        end
-        [y,m,d] = ymd(datetime(“today”));
-        file_path = generate_file_path(output_folder, y, m. d, fname);
-        movefile(fpath, file_path);
-        files_map(map_key) = file_path;
-        save(“files_map.mat”, ‘files_map’)
-    end
-end
-```
-5. Stwórz funkcję, która wygeneruje ścieżkę do zapisu pliku:
-```
-function fp = generate_file_path(output_base_folder, y, m, d, n)
-    fp = output_base_folder;
-    forelem=[y,m,d,n]
-        fp = fullfule(fp, elem);
-        if (elem ~= n) && (~exists(fp, ‘dir’))
-            mkdir(fp)
-        end
-    end
-end
+W rzeczywistym świecie dane nie są zawsze idealne – mogą zawierać szum. Zasymulujemy temperatury, dodając losowy szum do odczytów.
+
+### **Zadanie**: Symuluj 100 odczytów temperatury z szumem (w zakresie od 20 do 35 stopni Celsjusza).
+
+Skopiuj i wklej poniższy kod do MATLAB:
+
+```matlab
+% Symulacja 100 odczytów temperatury z szumem
+temperature_data = randi([20, 35], 1, 100);
+
+% Dodajemy losowy szum (np. ±2°C) do odczytów temperatury
+noise = randn(1, 100) * 2;
+noisy_temperature_data = temperature_data + noise;
+
+% Symulowany czas (załóżmy, że 1 odczyt na minutę)
+time = 1:100;
+
+% Wyświetlenie pierwszych 10 odczytów z szumem
+disp('Pierwsze 10 odczytów temperatury z szumem:');
+disp(noisy_temperature_data(1:10));
 ```
 
-## Skrypt loader.m :
-1. Wczytaj istniejącą mapę plików:
-```
-saved_map = load(„files_map.mat”);
-```
-2. Odczytaj klucze i wartości z mapy:
-```
-k = keys(files_map);
-val = values(files_map);
-```
-3. Zapytaj użytkownika, który plik chce wczytać
-```
-disp(“Which file should I load? (type a number)”);
-```
-4. Wyświetl listę wszystkich dostępnych plików
-```
-for i = 1:length(files_map)
-    fprintf(“%d - %s | %s\n”, i, k{i}, val{i})
-end
-```
-5. Pobierz wybór użytkownika:
-```
-selection = input(“Enter number: “);
-```
-6. Wybierz ścieżkę do odpowiedniego pliku:
-```
-file_path = string(val(selection));
-```
-7. Wczytaj zawartość pliku oraz ją wyświetl
-```
-content = readlines(file_path);
-disp(content);
+### **Wyjaśnienie**:
+- `randn(1, 100) * 2` generuje 100 losowych wartości rozkładu normalnego z odchyleniem standardowym wynoszącym 2 (szum ±2°C).
+- `noisy_temperature_data` to dane temperatury z dodanym szumem.
+
+---
+
+## **Krok 2: Przetwarzanie danych i wygładzanie**
+
+Teraz, gdy mamy "zaszumione" dane, obliczymy statystyki i zastosujemy technikę wygładzania (np. średnia ruchoma) w celu ich oczyszczenia.
+
+### **Zadanie**: Oblicz statystyki i wygładź dane za pomocą średniej ruchomej.
+
+Skopiuj i wklej poniższy kod do MATLAB:
+
+```matlab
+% Podstawowe statystyki dla danych z szumem
+mean_temp_noisy = mean(noisy_temperature_data);
+median_temp_noisy = median(noisy_temperature_data);
+min_temp_noisy = min(noisy_temperature_data);
+max_temp_noisy = max(noisy_temperature_data);
+
+% Wyświetlenie wyników
+disp(['Średnia temperatura (z szumem): ', num2str(mean_temp_noisy)]);
+disp(['Mediana temperatury (z szumem): ', num2str(median_temp_noisy)]);
+disp(['Minimalna temperatura (z szumem): ', num2str(min_temp_noisy)]);
+disp(['Maksymalna temperatura (z szumem): ', num2str(max_temp_noisy)]);
+
+% Wygładzanie danych (średnia ruchoma na oknie 5 odczytów)
+smoothed_temperature_data = movmean(noisy_temperature_data, 5);
+
+% Wyświetlenie pierwszych 10 wygładzonych odczytów
+disp('Pierwsze 10 wygładzonych odczytów temperatury:');
+disp(smoothed_temperature_data(1:10));
 ```
 
-## Zadania do zrealizowania indywidualnie:
-Przerób program tak, żeby w przypadku podania już zajętej nazwy do mapy, prosił użytkownika o podanie nowej nazwy tak długo aż użytkownik nie wpisze poprawnej, lub nie wpisze QUIT. Ostrzeż użytkownika, że QUIT jest słowem, które kończy działanie programu.
+### **Wyjaśnienie**:
+- `movmean(data, window_size)` to funkcja MATLAB obliczająca średnią ruchomą z danych, z określonym rozmiarem okna (w tym przypadku 5 odczytów).
 
-Na podstawie skryptu saver.m zmodyfikuj skrypt loader.m w taki sposób, żeby nie kończył się błędem, jeżeli plik z mapą (files_map.mat) nie istanieje, a jedynie informował o tym użytkownika i kończył działanie.
+---
+
+## **Krok 3: Porównanie i wizualizacja danych**
+
+Stworzymy wykresy, które porównają dane zaszumione i wygładzone. Anotujemy również kluczowe punkty na wykresie (np. wartości maksymalne i minimalne).
+
+### **Zadanie**: Stwórz wykresy i porównaj dane zaszumione oraz wygładzone.
+
+Skopiuj i wklej poniższy kod do MATLAB:
+
+```matlab
+% Wykres temperatur zaszumionych i wygładzonych
+figure;
+plot(time, noisy_temperature_data, 'r-', 'DisplayName', 'Zaszumione dane');
+hold on;
+plot(time, smoothed_temperature_data, 'b-', 'LineWidth', 2, 'DisplayName', 'Wygładzone dane');
+title('Porównanie zaszumionych i wygładzonych danych temperatury');
+xlabel('Czas (minuty)');
+ylabel('Temperatura (°C)');
+legend show;
+grid on;
+
+% Anotowanie kluczowych punktów (wartości maksymalne i minimalne)
+[max_temp_value, max_idx] = max(smoothed_temperature_data);
+[min_temp_value, min_idx] = min(smoothed_temperature_data);
+text(max_idx, max_temp_value, ['\leftarrow Max: ', num2str(max_temp_value)], 'Color', 'green');
+text(min_idx, min_temp_value, ['\leftarrow Min: ', num2str(min_temp_value)], 'Color', 'blue');
+```
+
+### **Wyjaśnienie**:
+- `plot()` tworzy wykres danych zaszumionych i wygładzonych.
+- `text(x, y, label)` dodaje anotacje na wykresie, np. wskazując maksymalną i minimalną wartość temperatury.
+
+---
+
+## **Krok 4: Eksploracja większych zestawów danych**
+
+Dla bardziej zaawansowanej eksploracji poproś studentów, aby:
+1. Zmienili rozmiar symulowanych danych (np. 500 odczytów).
+2. Porównali różne wielkości okien dla średniej ruchomej.
+3. Przeanalizowali różne metody wygładzania (np. mediana ruchoma zamiast średniej ruchomej).
+
+---
+
+## **Podsumowanie**
+
+W tej sesji nauczyłeś/aś się:
+- Jak symulować dane z szumem.
+- Jak przetwarzać i wygładzać dane przy użyciu średniej ruchomej.
+- Jak tworzyć wykresy porównujące różne zestawy danych oraz anotować kluczowe punkty.
+
