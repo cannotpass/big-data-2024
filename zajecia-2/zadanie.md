@@ -58,9 +58,9 @@ end
 ```
 function fp = generate_file_path(output_base_folder, y, m, d, n)
     fp = output_base_folder;
-    forelem=[y,m,d,n]
-        fp = fullfule(fp, elem);
-        if (elem ~= n) && (~exists(fp, ‘dir’))
+    for elem = [y, m, d, n]
+        fp = fullfile(fp, string(elem));
+        if (elem ~= n) && (~exist(fp, 'dir'))
             mkdir(fp)
         end
     end
