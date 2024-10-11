@@ -39,18 +39,18 @@ end
 ```
 for n = 1:numel(input_files)
     fname = string(input_files(n).name);
-    if fname ~= “.” && fname ~= “..”
+    if fname ~= "." && fname ~= ".."
         fpath = fullfile(input_folder, fname);
-        prompt = strcat(“To which name I should map:”, fpath, “? “);
-        map_key = string(input(prompt, “s”));
+        prompt = strcat("To which name should I map: ", fpath, "? ");
+        map_key = string(input(prompt, 's'));
         if isKey(files_map, map_key)
-            error(“Key {“ + map_key + “} is already taken, retart the program.”)
+            error("Key {" + map_key + "} is already taken, restart the program.")
         end
-        [y,m,d] = ymd(datetime(“today”));
-        file_path = generate_file_path(output_folder, y, m. d, fname);
+        [y,m,d] = ymd(datetime("today"));
+        file_path = generate_file_path(output_folder, y, m, d, fname);
         movefile(fpath, file_path);
         files_map(map_key) = file_path;
-        save(“files_map.mat”, ‘files_map’)
+        save('files_map.mat', 'files_map');
     end
 end
 ```
