@@ -29,8 +29,9 @@ input_files = dir(input_folder);
 ```
 3. Jeżeli istnieje już plik z mapą przechowującą informację o położeniu przetworzonych plików wczytajmy go, jeśli nie, stwórzmy nowy obiekt mapy.
 ```
-if exist(‘files_map.mat’, ‘dir’)
-    files_map = load(“files_map.mat”);
+if exist('files_map.mat', 'file')
+    temp = load('files_map.mat');
+    files_map = temp.files_map;
 else
     files_map = containers.Map;
 end
