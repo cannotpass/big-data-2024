@@ -50,3 +50,6 @@ Celem projektu jest opracowanie modelu predykcyjnego do prognozowania przyszłeg
 Projekt ma na celu nie tylko przygotowanie prognoz, ale także rozwinięcie umiejętności analitycznych, nauczenie krytycznego myślenia i podejmowania decyzji na podstawie danych.
 
 Finalny rezultat powinien być zrozumiały dla zarządu firmy i wskazywać konkretne kroki, które można podjąć w celu optymalizacji zarządzania zapotrzebowaniem na gaz.
+
+## Dane pochodzą z ogólnodostępnych źródeł
+https://www.eia.gov/dnav/ng/ng_cons_sum_a_EPG0_VC0_mmcf_a.htm
