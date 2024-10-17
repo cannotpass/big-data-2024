@@ -4,6 +4,9 @@
 ## Opis projektu
 Celem projektu jest opracowanie modelu predykcyjnego do prognozowania przyszłego zapotrzebowania na gaz ziemny, bazując na analizie danych szeregów czasowych. Zadanie polega na zastosowaniu różnych metod prognozowania w środowisku MATLAB w celu przewidzenia przyszłych wartości zapotrzebowania na podstawie historycznych danych. Studenci będą musieli przeanalizować dane, przetestować różne techniki predykcyjne oraz przedstawić wyniki w formie przystępnej dla zarządu firmy.
 
+Należy przeanalizować znajdujące się w repozytorium dane dla rynku amerykańskiego, które zawierają miesięczne wartości.
+Należy dodatkowo przeanalizować dane na poziomie stanów w celu końcowego przetestowania wybranych metod przewidywania.
+
 ## Wymagania
 1. **Sposób dostarczenia:**  
    - Wyniki i wnioski powinny zostać przedstawione w formie raportu, prezentacji (np. PowerPoint), albo arkusza kalkulacyjnego (Excel), przygotowanego tak, aby był zrozumiały dla zarządu firmy, który nie musi posiadać wiedzy technicznej.  
