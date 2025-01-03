@@ -28,6 +28,7 @@ Należy dodatkowo przeanalizować dane na poziomie stanów w celu końcowego prz
    - Każda z metod powinna być przystępnie opisana, a wyniki prognoz przedstawione graficznie.
 
 3. **Obliczenia błędów prognoz:**  
+   - Prognozy powinny być przeprowadzone dla okresu od 2015 roku (model uczony na wybranym zakresie danych do 2015, przewidywania dla lat kolejnych).
    - Dla każdej metody należy obliczyć błędy prognoz, takie jak:
      - Średni błąd absolutny (MAE)
      - Średni kwadratowy błąd (MSE)
@@ -37,13 +38,14 @@ Należy dodatkowo przeanalizować dane na poziomie stanów w celu końcowego prz
 4. **Analiza wyników i rekomendacje:**  
    - Na podstawie uzyskanych wyników należy sformułować rekomendacje dotyczące najlepszej metody prognozowania, wraz z uzasadnieniem.
    - Wskazać potencjalne korzyści biznesowe wynikające z zastosowania wybranego modelu oraz omówić ograniczenia i ewentualne ryzyko związane z prognozowaniem.
+   - Dodatkowo, można pokusić się o analizę potencjalnych kosztów błędu.
 
 5. **Wizualizacja danych:**  
    - Należy przedstawić dane historyczne oraz prognozowane w formie wykresów.
    - Wyniki poszczególnych metod prognozowania muszą być przedstawione na jednym wykresie w celu łatwego porównania.
 
 6. **Opis zastosowanego podejścia:**  
-   - Szczegółowo opisać proces przygotowania danych, w tym ich wstępne przetwarzanie, usuwanie brakujących wartości, agregację i normalizację.
+   - Szczegółowo opisać proces przygotowania danych, w tym ich wstępne przetwarzanie, usuwanie brakujących wartości, agregację i normalizację - tutaj chodzi o spisanie kroków, a nie ich szczegółowy opis, np. dane zostały podzielone przez 20, potem dodano do nich 120, a nie "dane zostały przetworzone". 
 
 7. **Wnioski:**  
    - Podsumowanie kluczowych obserwacji oraz wyciągniętych wniosków.
