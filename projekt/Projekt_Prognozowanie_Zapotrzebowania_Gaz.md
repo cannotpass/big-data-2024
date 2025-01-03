@@ -11,6 +11,7 @@ Należy dodatkowo przeanalizować dane na poziomie stanów w celu końcowego prz
 1. **Sposób dostarczenia:**  
    - Wyniki i wnioski powinny zostać przedstawione w formie raportu, prezentacji (np. PowerPoint), albo arkusza kalkulacyjnego (Excel), przygotowanego tak, aby był zrozumiały dla zarządu firmy, który nie musi posiadać wiedzy technicznej.  
    - W prezentacji lub raporcie należy jasno wyjaśnić zastosowane metody, wyniki oraz rekomendacje.
+   - Należy przeprowadzić analizę dla przynajmniej dwóch wybrancyh rejonów z pliku z danymi (np. dwóch stanów), dla jednego należy pokazać tok rozumowania zgodnie z opisem poniżej, dla drugiego można skorzystać z gotowych funkcji do prognozowania i jedynie przedstawić wyniki.
 
 2. **Wstępna analiza**
    - Na wstępie naley przeprowadzić analizę eksploracyjną danych. Należy zbadać:
